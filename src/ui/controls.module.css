@@ -1,0 +1,302 @@
+/* Shared controls: buttons, field, segmented control, menu, tooltip, keycap and panel sections.
+   Components pull these in with `composes: name from './controls.module.css'`. */
+
+/* Buttons: 24px, control fill and shadow, 12px medium. */
+.button {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: var(--radius-control);
+  background: var(--color-control);
+  box-shadow: var(--shadow-control);
+  color: var(--color-gray-1);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  cursor: default;
+}
+.button:not(:disabled):active,
+.button[aria-pressed='true'] {
+  background: var(--color-control-pressed);
+}
+.button:disabled {
+  color: var(--color-gray-4);
+  opacity: 0.6;
+}
+.buttonLg {
+  composes: button;
+  height: 32px;
+  padding: 0 12px 1px;
+  gap: 8px;
+  font-size: var(--text-lg);
+}
+/* Primary action: light fill, dark text. */
+.buttonHigh {
+  composes: button;
+  background: var(--color-button-high-contrast);
+  box-shadow: none;
+  color: var(--color-control);
+}
+.buttonHigh:not(:disabled):active {
+  background: var(--color-button-high-contrast-pressed);
+  color: var(--color-inverse);
+}
+.buttonHigh:disabled {
+  background: var(--color-gray-2);
+  color: var(--color-gray-3);
+  opacity: 1;
+}
+.buttonHigh:focus-visible {
+  outline-offset: 2px;
+}
+.buttonHighLg {
+  composes: buttonHigh;
+  height: 32px;
+  padding: 0 12px 1px;
+  font-size: var(--text-lg);
+}
+/* Transparent until hovered. */
+.buttonGhost {
+  composes: button;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-gray-2);
+}
+.buttonGhost:not(:disabled):hover {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.buttonGhost:not(:disabled):active,
+.buttonGhost[aria-pressed='true'] {
+  background: var(--color-ghost-pressed);
+  color: var(--color-gray-1);
+}
+/* 24px square icon button; the negative margin keeps the icon on the grid. */
+.iconButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.iconButton:not(:disabled):hover,
+.iconButton[aria-pressed='true'],
+.iconButton[aria-expanded='true'] {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.iconButton:not(:disabled):active {
+  background: var(--color-ghost-pressed);
+}
+.iconButton:disabled {
+  opacity: 0.4;
+}
+
+/* Text and number field. */
+.field {
+  appearance: none;
+  height: 24px;
+  min-width: 0;
+  padding: 0 6px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--color-control);
+  box-shadow: var(--shadow-control);
+  color: var(--color-gray-1);
+  font-size: var(--text-base);
+  font-feature-settings: 'case' 1;
+  font-variant-numeric: tabular-nums;
+  line-height: normal;
+  user-select: text;
+}
+.field::placeholder {
+  color: var(--color-gray-4);
+  opacity: 1;
+}
+.field:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -1px;
+}
+
+/* Segmented control: its buttons (or .toggleItem elements) mark the selected one with
+   aria-pressed, aria-selected or aria-checked. */
+.toggleGroup {
+  display: flex;
+  height: 24px;
+  border-radius: calc(var(--radius-control) + 1px);
+  background: var(--color-toggle);
+  white-space: nowrap;
+}
+.toggleGroup > button,
+.toggleItem {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: calc(100% - 2px);
+  margin: 1px;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-3);
+  font-size: var(--text-base);
+  cursor: default;
+}
+.toggleGroup > button:hover,
+.toggleItem:hover {
+  color: var(--color-gray-2);
+}
+.toggleGroup > [aria-pressed='true'],
+.toggleGroup > [aria-selected='true'],
+.toggleGroup > [aria-checked='true'],
+.toggleItem[aria-pressed='true'],
+.toggleItem[aria-selected='true'],
+.toggleItem[aria-checked='true'] {
+  background: var(--color-toggle-pressed);
+  box-shadow: var(--shadow-toggle);
+  color: var(--color-gray-1);
+  font-weight: var(--weight-caption);
+  letter-spacing: -0.007em;
+}
+.toggleGroup > button:focus-visible,
+.toggleItem:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* Popups, menus, tooltips. */
+.popup {
+  border-radius: var(--radius-6);
+  background: var(--color-popup);
+  box-shadow: var(--shadow-popup);
+  overflow: hidden;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  padding: 4px 0;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+}
+.menuItem {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  padding: 3.5px 12px 4.5px;
+  color: var(--color-gray-1);
+  font-size: var(--text-base);
+  font-feature-settings: 'case';
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+}
+.menuItem::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 4px;
+  border-radius: var(--radius-6);
+}
+.menuItem:hover,
+.menuItem:focus-visible {
+  color: #fff;
+  outline: none;
+}
+.menuItem:hover::before,
+.menuItem:focus-visible::before {
+  background: var(--color-menu-highlight);
+}
+.menuItem:disabled {
+  color: var(--color-gray-3);
+}
+.menuItem:disabled::before {
+  background: none;
+}
+.menuSeparator {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--color-separator);
+}
+.tooltip {
+  padding: 3.5px 8px 4.5px;
+  border-radius: var(--radius-6);
+  background: var(--color-tooltip);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px -4px #0009;
+  outline: 1px solid var(--color-tooltip-border);
+  outline-offset: -1px;
+  color: var(--color-gray-1);
+  font-size: var(--text-base);
+  line-height: var(--leading);
+  white-space: nowrap;
+}
+@media (min-resolution: 2x) {
+  .tooltip {
+    outline-width: 0.5px;
+    outline-offset: -0.5px;
+  }
+}
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75em;
+  padding: 0.01em 0.5em 0;
+  border-radius: var(--radius-6);
+  background: #222;
+  color: var(--color-gray-1);
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.7em;
+  word-spacing: -0.1em;
+  white-space: nowrap;
+  text-shadow: 0 0 0.2em #ffffff1a;
+  box-shadow:
+    inset 0 0.25em 0.5em #00000004,
+    inset 0 -0.05em 0.2em #000000b3,
+    0 0 0.5px 1px #ffffff1a,
+    0 0 0.2em #ffffff1a,
+    0 0.08em 0.17em #00000026;
+}
+
+/* Panel anatomy: sections with a 32px header and 4px by 12px rows. */
+.panelSection {
+  border-bottom: 1px solid var(--color-separator);
+}
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  color: var(--color-gray-1);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+}
+.rowLabel {
+  font-size: var(--text-label);
+  line-height: var(--leading);
+  font-weight: var(--weight-caption);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

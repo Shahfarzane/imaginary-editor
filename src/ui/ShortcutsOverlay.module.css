@@ -1,0 +1,52 @@
+/* Covers the side panel: the panel header, then each shortcut as keycaps beside what it does. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow-y: auto;
+  background: var(--color-panel);
+}
+.head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 8px 0 12px;
+  border-bottom: 1px solid var(--color-separator);
+  background: var(--color-panel);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+}
+.close {
+  composes: iconButton from './controls.module.css';
+}
+.list {
+  margin: 0;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px 12px;
+}
+.list > div {
+  display: contents;
+}
+.keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.key {
+  composes: keycap from './controls.module.css';
+  font-size: var(--text-label);
+}
+.aside {
+  color: var(--color-gray-3);
+}
+.does {
+  margin: 0;
+  color: var(--color-gray-2);
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024"><title>Imaginary</title><rect width="1024" height="1024" rx="229" fill="#000000"/><svg x="340.18" y="143.36" width="343.65" height="737.28" color="#FFFFFF" xmlns="http://www.w3.org/2000/svg" id="imaginary-logo" viewBox="0 0 330 708" fill="currentColor">
+  <title>Imaginary</title>
+  <defs>
+    <mask id="imaginary-logo-slots" maskUnits="userSpaceOnUse" x="0" y="0" width="330" height="708">
+      <rect width="330" height="708" fill="#fff" />
+      <g stroke="#000" stroke-width="10" stroke-linecap="round">
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(42 42)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(198 42)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(120 250)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(120 354.1)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(120 458.3)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(127.6 561.8)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(187.5 643.5)" />
+        <line x1="-19.45" y1="19.45" x2="19.45" y2="-19.45" transform="translate(288 666)" />
+      </g>
+    </mask>
+  </defs>
+  <g>
+    <circle r="42" transform="translate(42 42)" />
+    <circle r="42" transform="translate(198 42)" />
+    <circle r="42" transform="translate(120 250)" />
+    <circle r="42" transform="translate(120 354.1)" />
+    <circle r="42" transform="translate(120 458.3)" />
+    <circle r="42" transform="translate(127.6 561.8)" />
+    <circle r="42" transform="translate(187.5 643.5)" />
+    <circle r="42" transform="translate(288 666)" />
+  </g>
+</svg></svg>

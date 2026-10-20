@@ -1,0 +1,139 @@
+/* Side panels: a panel surface with a separator, a header row, then
+   sections with 32px headers and 12px side padding, split by 1px rules. */
+.panel {
+  position: relative;
+  z-index: 2;
+  background: var(--color-panel);
+  border-left: 1px solid var(--color-separator);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+}
+/* Title and photo count on one 40px row; extras (histogram, search) span the width below. */
+.title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 8px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--color-separator);
+}
+.titleText {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-gray-1);
+}
+.subtitle {
+  font-size: var(--text-base);
+  color: var(--color-gray-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.title > :nth-child(n + 3) {
+  grid-column: 1 / -1;
+}
+.title > :last-child:nth-child(n + 3) {
+  margin-bottom: 12px;
+}
+.titleExtra {
+  min-width: 0;
+}
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 48px;
+}
+.none {
+  color: var(--color-gray-3);
+  padding: 16px 12px;
+}
+
+/* Sections */
+.groups {
+  display: flex;
+  flex-direction: column;
+}
+.group {
+  composes: panelSection from './controls.module.css';
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 12px 12px;
+}
+.groupTitle {
+  composes: panelHeader from './controls.module.css';
+  margin: 0 -12px -4px;
+}
+/* Header actions (Reset, On/Off, reroll) are small ghost buttons. */
+.groupTitle button {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  margin-right: -6px;
+  padding: 0 6px;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-2);
+  font-size: var(--text-base);
+  font-weight: 400;
+  cursor: default;
+}
+.groupTitle button:hover {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.groupTitle button:active {
+  background: var(--color-ghost-pressed);
+}
+.sub {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 10px;
+  border-left: 1px solid var(--color-separator);
+}
+
+.seg {
+  composes: toggleGroup from './controls.module.css';
+}
+
+.pillBtn {
+  composes: button from './controls.module.css';
+}
+/* The panel's main action is the large high-contrast button. */
+.primary {
+  composes: buttonHighLg from './controls.module.css';
+}
+/* Sections without a header start below the rule above them. */
+.group > :first-child:not(.groupTitle) {
+  margin-top: 12px;
+}
+/* Reset and Done at the end of the crop panel. */
+.groups > .row {
+  padding: 12px;
+}
+.groups > .row > .pillBtn {
+  flex: 1;
+  height: 32px;
+  padding: 0 12px 1px;
+  font-size: var(--text-lg);
+}
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.groups > .hint {
+  padding: 12px;
+  border-bottom: 1px solid var(--color-separator);
+}
+.hint {
+  color: var(--color-gray-3);
+  font-size: var(--text-base);
+  line-height: var(--leading);
+}

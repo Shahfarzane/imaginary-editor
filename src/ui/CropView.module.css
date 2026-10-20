@@ -1,0 +1,114 @@
+.wrap {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--color-canvas);
+  touch-action: none;
+  user-select: none;
+}
+.stage {
+  position: relative;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.box {
+  position: absolute;
+  outline: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 0 0 100vmax color-mix(in oklab, var(--color-canvas) 78%, transparent);
+  cursor: move;
+}
+.thirds {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+  pointer-events: none;
+}
+.thirds.show {
+  opacity: 1;
+}
+.thirds i,
+.thirds b {
+  position: absolute;
+  background: rgb(255 255 255 / 0.45);
+}
+.thirds i {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+.thirds b {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+.handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: var(--radius-2);
+  background: #f9f9f9;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.2),
+    0 1px 3px rgb(0 0 0 / 0.3);
+  z-index: 2;
+}
+.handle::after {
+  /* Larger invisible hit area */
+  content: '';
+  position: absolute;
+  inset: -9px;
+}
+.nw {
+  left: 0;
+  top: 0;
+  cursor: nwse-resize;
+}
+.n {
+  left: 50%;
+  top: 0;
+  cursor: ns-resize;
+}
+.ne {
+  left: 100%;
+  top: 0;
+  cursor: nesw-resize;
+}
+.e {
+  left: 100%;
+  top: 50%;
+  cursor: ew-resize;
+}
+.se {
+  left: 100%;
+  top: 100%;
+  cursor: nwse-resize;
+}
+.s {
+  left: 50%;
+  top: 100%;
+  cursor: ns-resize;
+}
+.sw {
+  left: 0;
+  top: 100%;
+  cursor: nesw-resize;
+}
+.w {
+  left: 0;
+  top: 50%;
+  cursor: ew-resize;
+}
+.dims {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  color: var(--color-gray-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

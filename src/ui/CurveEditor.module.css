@@ -1,0 +1,46 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tabs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.reset {
+  height: 24px;
+  padding: 0 6px;
+  margin-right: -6px;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.reset:hover {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.svg {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-control);
+  background: var(--color-root);
+  touch-action: none;
+  cursor: crosshair;
+  display: block;
+}
+.hist {
+  fill: rgb(255 255 255 / 0.06);
+}
+.grid line {
+  stroke: rgb(255 255 255 / 0.06);
+  stroke-width: 1;
+}
+.diag {
+  stroke: rgb(255 255 255 / 0.1);
+  stroke-width: 1;
+}
+.pt {
+  fill: var(--color-root);
+  stroke-width: 1.5;
+}

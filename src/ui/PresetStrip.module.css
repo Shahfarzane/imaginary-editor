@@ -1,0 +1,276 @@
+/* The preset strip under the photo in the single view: one row of preset sets, each a rounded block with its
+   label on the set's color and the photo through each preset, in a floating toolbar that scrolls sideways. */
+.strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+/* The floating bar: the save tile, then the presets, which scroll on their own. */
+.tray {
+  display: flex;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+  padding: 4px;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  pointer-events: auto;
+}
+.scroller {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  border-radius: var(--radius-6);
+  scrollbar-width: none;
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+.group {
+  flex: none;
+  display: flex;
+  height: 58px;
+  border-radius: var(--radius-6);
+  overflow: hidden;
+  background: var(--color-thumbnail);
+}
+.label {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  font-size: var(--text-sm);
+  line-height: 14px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+.thumb {
+  position: relative;
+  flex: none;
+  display: block;
+  width: 46px;
+  height: 58px;
+  padding: 0;
+  background: var(--color-thumbnail);
+  cursor: default;
+}
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.15s var(--ease);
+}
+.thumb:hover .canvas {
+  filter: brightness(1.12);
+}
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 2px transparent;
+  pointer-events: none;
+  transition: box-shadow 0.15s var(--ease);
+}
+.sel::after {
+  box-shadow: inset 0 0 0 2px var(--color-focus);
+}
+.thumb:focus-visible {
+  outline: 0;
+}
+.thumb:focus-visible::after {
+  box-shadow: inset 0 0 0 2px var(--color-gray-2);
+}
+
+/* Your presets: a quiet label, and a tile with a plus that saves the photo's edit. */
+.yours {
+  background: var(--color-control);
+  color: var(--color-gray-2);
+}
+.add {
+  display: grid;
+  place-items: center;
+  color: var(--color-gray-3);
+}
+.add:hover {
+  color: var(--color-gray-1);
+}
+
+/* Naming a preset: a field and its buttons in the group, where the save tile was. */
+.editor {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 0 4px;
+}
+.input {
+  composes: field from './controls.module.css';
+  width: 168px;
+}
+.action {
+  composes: button from './controls.module.css';
+}
+.danger {
+  color: var(--color-red);
+}
+
+/* Your collections: a light label with the name's first letters; a double-click on it renames or deletes. */
+.mine {
+  padding: 0;
+  background: var(--color-button-high-contrast);
+  color: #1e1e1e;
+  cursor: default;
+}
+
+/* Picked for a collection: an accent dot with a dark ring in the corner. */
+.picked::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-blue-3);
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.55);
+  pointer-events: none;
+}
+
+/* What to do with the picked presets, centered over the strip. */
+.bar {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100% - 32px);
+  padding: 4px 4px 4px 12px;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  overflow-x: auto;
+  pointer-events: auto;
+}
+.count {
+  flex: none;
+  margin-right: 4px;
+  color: var(--color-gray-2);
+}
+.bar .action {
+  flex: none;
+}
+.bar .editor {
+  padding: 0;
+}
+
+/* The save tile sits outside the scrolling part, so presets never pass under it. */
+.save {
+  flex: none;
+}
+
+/* Dragging: the lifted tile or group dims, a line marks where it lands, a copy follows the pointer. */
+.handle {
+  cursor: grab;
+  touch-action: pan-x;
+}
+.lifted {
+  opacity: 0.4;
+}
+.thumb.dropBefore::after {
+  box-shadow: inset 3px 0 0 var(--color-gray-1);
+}
+.thumb.dropAfter::after {
+  box-shadow: inset -3px 0 0 var(--color-gray-1);
+}
+.group.dropBefore {
+  box-shadow: -3px 0 0 var(--color-gray-1);
+}
+.group.dropAfter {
+  box-shadow: 3px 0 0 var(--color-gray-1);
+}
+.ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 46px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-6);
+  background: var(--color-button-high-contrast);
+  color: #1e1e1e;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  box-shadow: var(--shadow-popup);
+  opacity: 0.92;
+  pointer-events: none;
+}
+.ghost canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* A preset's right-click menu, above the pointer. */
+.menu {
+  position: fixed;
+  z-index: 60;
+  min-width: 200px;
+  max-width: 280px;
+  padding: 4px 0;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  pointer-events: auto;
+}
+.menuHead {
+  padding: 4px 12px 6px;
+  color: var(--color-gray-1);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.menuSection {
+  padding: 6px 12px 2px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-caption);
+  color: var(--color-gray-3);
+}
+.menuItem {
+  composes: menuItem from './controls.module.css';
+  width: 100%;
+}
+.menuIcon {
+  flex: none;
+  width: 16px;
+  display: grid;
+  place-items: center;
+}
+.menuSep {
+  composes: menuSeparator from './controls.module.css';
+}
+.menu .editor {
+  padding: 4px 12px;
+}
+.menu .input {
+  width: 140px;
+}

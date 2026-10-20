@@ -1,0 +1,97 @@
+.bar {
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-gray-5);
+  overflow: hidden;
+}
+.bar div {
+  height: 100%;
+  background: var(--color-blue-3);
+  transition: width 0.2s var(--ease);
+}
+
+/* The Cmd+E dialog: the shared dialog look over a dimmed, slightly saturated backdrop. */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--color-dialog-backdrop);
+  -webkit-backdrop-filter: saturate(1.25);
+  backdrop-filter: saturate(1.25);
+  display: grid;
+  place-items: center;
+  animation: fade 0.3s var(--ease-out-fast);
+}
+.modal {
+  width: 360px;
+  padding: 16px;
+  border-radius: var(--radius-16);
+  background: var(--color-popup);
+  box-shadow: var(--shadow-popup);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: rise 0.45s var(--ease-out-fast) 50ms backwards;
+}
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  margin-bottom: 4px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-gray-1);
+  cursor: default;
+}
+.check input {
+  appearance: none;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border-radius: var(--radius-4);
+  background: var(--color-control);
+  box-shadow: var(--shadow-checkbox);
+  display: grid;
+  place-items: center;
+}
+.check input:checked::after {
+  content: '';
+  width: 8px;
+  height: 4px;
+  border-left: 1.5px solid var(--color-gray-1);
+  border-bottom: 1.5px solid var(--color-gray-1);
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.btn {
+  composes: buttonLg from './controls.module.css';
+  flex: 1;
+}
+.primary {
+  composes: buttonHighLg from './controls.module.css';
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    translate: 0 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrim,
+  .modal {
+    animation: none;
+  }
+}

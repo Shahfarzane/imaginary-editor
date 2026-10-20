@@ -1,0 +1,153 @@
+/* Design tokens. Colors are light-dark() pairs; the app is dark only for now (color-scheme below). */
+:root {
+  color-scheme: dark;
+
+  /* Text and icons: alpha over whatever surface they sit on. */
+  --color-gray-1: light-dark(rgb(0 0 0 / 0.8), rgb(255 255 255 / 0.9));
+  --color-gray-2: light-dark(rgb(0 0 0 / 0.6), rgb(255 255 255 / 0.65));
+  --color-gray-3: light-dark(rgb(0 0 0 / 0.5), rgb(255 255 255 / 0.575));
+  --color-gray-4: light-dark(rgb(0 0 0 / 0.425), rgb(255 255 255 / 0.5));
+  --color-gray-5: light-dark(rgb(0 0 0 / 0.1), rgb(255 255 255 / 0.1));
+  --color-inverse: light-dark(#fff, #000);
+
+  /* Surfaces */
+  --color-root: light-dark(#fff, #222);
+  --color-panel: light-dark(#f2f2f2, #2a2a2a);
+  --color-panel-highlight-1: light-dark(#eaeaea, #333);
+  --color-panel-highlight-2: light-dark(#e0e0e0, #3c3c3c);
+  --color-panel-scrollbar: light-dark(#aaa, #888);
+  --color-canvas: light-dark(#eee, #282828);
+  --color-separator: light-dark(#e2e2e2, #373737);
+  --color-separator-highlight: light-dark(#dadada, #3e3e3e);
+  --color-control: light-dark(#f9f9f9, #373737);
+  --color-control-pressed: light-dark(#fcfcfc, #3c3c3c);
+  --color-control-icon: light-dark(rgb(0 0 0 / 0.35), rgb(255 255 255 / 0.4));
+  --color-ghost-hover: light-dark(rgb(0 0 0 / 0.06), rgb(255 255 255 / 0.06));
+  --color-ghost-pressed: light-dark(rgb(0 0 0 / 0.085), rgb(255 255 255 / 0.085));
+  --color-toggle: light-dark(rgb(0 0 0 / 0.05), rgb(255 255 255 / 0.05));
+  --color-toggle-pressed: light-dark(var(--color-control), rgb(255 255 255 / 0.05));
+  --color-toolbar-button-hover: var(--color-ghost-hover);
+  --color-toolbar-button-pressed: light-dark(var(--color-control), #444);
+  --color-slider-range: light-dark(rgb(0 0 0 / 0.075), rgb(255 255 255 / 0.1));
+  --color-slider-track: light-dark(rgb(0 0 0 / 0.18), rgb(255 255 255 / 0.25));
+  --color-slider-snap-point: light-dark(rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.4));
+  --color-thumbnail: light-dark(rgb(0 0 0 / 0.075), rgb(255 255 255 / 0.1));
+  --color-thumbnail-selected: light-dark(oklch(97.5% 0.012 258), oklch(30% 0.025 258));
+  --color-button-high-contrast: light-dark(#1e1e1e, #f2f2f2);
+  --color-button-high-contrast-pressed: light-dark(#333, #d4d4d4);
+  --color-checkbox-outline: light-dark(#d8d8d8, #444);
+  --color-popup: var(--color-panel);
+  --color-popup-outline: light-dark(rgb(0 0 0 / 0.1), #444);
+  --color-menu: color-mix(in oklab, var(--color-panel) 92%, transparent);
+  --color-toast: color-mix(in oklab, var(--color-panel) 92%, transparent);
+  --color-tooltip: light-dark(rgb(250 250 250 / 0.92), rgb(67 67 67 / 0.92));
+  --color-tooltip-border: light-dark(transparent, #555);
+  --color-dialog-backdrop: light-dark(#bbbb, #111b);
+
+  /* Accent: one blue (hue 258) for focus, selection and highlighted menu items. */
+  --color-blue-2: oklch(70% 0.15 258);
+  --color-blue-3: oklch(67% 0.17 258);
+  --color-blue-4: oklch(63.5% 0.15 258);
+  --color-blue-5: oklch(55% 0.145 258);
+  --color-focus: light-dark(oklch(74% 0.12 258), oklch(60% 0.15 258));
+  --color-selection: light-dark(oklch(78% 0.12 258 / 0.5), oklch(74% 0.3 258 / 0.3));
+  --color-menu-highlight: light-dark(var(--color-blue-3), var(--color-blue-5));
+  --color-orange: oklch(81% 0.18 67);
+  --color-red: light-dark(oklch(59% 0.25 20), oklch(71% 0.23 20));
+  --color-green: light-dark(oklch(62% 0.16 150), oklch(74% 0.18 150));
+
+  /* Radii, shadows */
+  --radius-2: 2px;
+  --radius-3: 3px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-16: 16px;
+  --radius-control: var(--radius-6);
+  --shadow-control: inset 0 1px #ffffff08, inset 0 0 1px 0.5px #fff1, 0 1px 0.5px #00000018, 0 0 3px -1px #000a;
+  --shadow-checkbox: inset 0 1px #ffffff08, inset 0 0 1px 0.5px #fff3, 0 1px 0.5px #00000018, 0 0 3px -1px #000a;
+  --shadow-toggle: inset 0 1px #ffffff08, inset 0 0 1px 0.5px #fff2, 0 1px 0.5px #00000018, 0 0 3px -1px #000a;
+  --shadow-popup: 0 0 0 1px var(--color-popup-outline), 0 4px 20px -2px rgb(0 0 0 / 0.4);
+
+  /* Type: the system face (SF Pro on Apple platforms), Inter elsewhere. */
+  --font: -apple-system, BlinkMacSystemFont, 'Inter Variable', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --text-sm: 10px;
+  --text-base: 12px;
+  --text-lg: 13px;
+  --text-label: 11px;
+  --leading: 16px;
+  --weight-caption: 465;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Motion */
+  --ease-out-fast: cubic-bezier(0.45, 1.005, 0, 1.005);
+  --ease-out-smooth: cubic-bezier(0.685, 0.89, 0.315, 0.995);
+  --ease-in-slow: cubic-bezier(0.375, 0.015, 0.545, 0.455);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --rail-w: 40px;
+  --panel-w: 260px;
+}
+
+@media (min-resolution: 2x) {
+  :root {
+    --color-popup-outline: light-dark(rgb(0 0 0 / 0.1), #555);
+    --color-tooltip-border: light-dark(transparent, #666);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--color-root);
+  color: var(--color-gray-1);
+  font-family: var(--font);
+  font-size: var(--text-base);
+  line-height: var(--leading);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  overflow: hidden;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-selection);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -1px;
+}
+
+/* No custom scrollbar: styling one forces a classic scrollbar with a gutter. The system's overlay
+   scrollbars float over the content and show while scrolling. */

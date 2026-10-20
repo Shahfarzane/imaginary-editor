@@ -1,0 +1,247 @@
+/* The rail is a toolbar: 36x32 buttons on the panel surface, a pill behind the hovered or
+   pressed one. Add and the panels on top, view controls and help at the bottom; selection actions
+   live in SelectionBar. */
+.rail {
+  --vrange: 116px;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-panel);
+  border-right: 1px solid var(--color-separator);
+  padding: 0 0 8px;
+  height: 100vh;
+}
+@media (max-height: 719px) {
+  .rail {
+    --vrange: 72px;
+  }
+}
+/* The logo is the Home button: the rail's full width, and a pointer so it reads as a link home. */
+.logo {
+  flex: none;
+  align-self: stretch;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-gray-1);
+  cursor: pointer;
+  transition: opacity 0.15s var(--ease);
+}
+.logo:hover {
+  opacity: 0.75;
+}
+.logo svg {
+  width: 20px;
+  height: auto;
+}
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.divider {
+  flex: none;
+  width: 20px;
+  height: 1px;
+  background: var(--color-separator);
+  margin: 6px 0;
+}
+.btn {
+  position: relative;
+  isolation: isolate;
+  flex: none;
+  width: 36px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 2px 4px;
+  border-radius: var(--radius-6);
+}
+.btn svg {
+  width: 20px;
+  height: 20px;
+}
+.btn:not(:disabled):hover {
+  color: var(--color-gray-1);
+}
+.btn:not(:disabled):hover::before {
+  background: var(--color-toolbar-button-hover);
+}
+.btn:disabled {
+  opacity: 0.4;
+}
+.btn:focus-visible {
+  outline: none;
+}
+.btn:focus-visible::before {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -1px;
+}
+/* The open panel's button is pressed. */
+.tab.tabOn {
+  color: var(--color-gray-1);
+}
+.tab.tabOn::before,
+.tab.tabOn:hover::before {
+  background: var(--color-toolbar-button-pressed);
+  box-shadow: var(--shadow-control);
+}
+/* A view toggle that is on (the strip): a brighter icon and no pill, so only the open panel looks selected. */
+.toggleOn {
+  color: var(--color-gray-1);
+}
+/* A menu's button while its menu is open: the hover fill, not the pressed pill. */
+.btn[aria-expanded='true'] {
+  color: var(--color-gray-1);
+}
+.btn[aria-expanded='true']::before {
+  background: var(--color-toolbar-button-hover);
+}
+/* A grid filter left on while the sidebar that holds it is hidden. */
+.dot {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-blue-3);
+}
+.spacer {
+  flex: 1;
+}
+
+/* Tooltips */
+.btn[data-tip]:hover > .tip {
+  opacity: 1;
+  transition-delay: 0.6s;
+}
+/* Pressed: the tip stays hidden until the pointer leaves the button (railTip.ts). */
+.btn[data-tip][data-tipoff]:hover > .tip {
+  opacity: 0;
+  transition-delay: 0s;
+}
+/* A small pill just past the rail's edge, shown only after a pause on the button. */
+.tip {
+  composes: tooltip from './controls.module.css';
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  transition: opacity 0.1s;
+}
+.tip kbd {
+  font: inherit;
+  color: var(--color-gray-3);
+  margin-left: 8px;
+}
+
+/* Vertical grid size and zoom slider: the XS slider on its side. */
+.sizer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.sizer > button {
+  width: 28px;
+  height: 28px;
+}
+.sizer > button svg {
+  width: 18px;
+  height: 18px;
+}
+.vrange {
+  position: relative;
+  width: 24px;
+  height: var(--vrange);
+  margin: 4px 0;
+  cursor: default;
+  touch-action: none;
+}
+.vrange::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: -5px;
+  bottom: -5px;
+  width: 8px;
+  border-radius: 4px;
+  background: var(--color-slider-range);
+}
+.vthumb {
+  position: absolute;
+  left: 7px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  box-shadow:
+    0 2px 4px -2px #00000040,
+    0 0 1px 1px #00000026;
+  transform: translateY(-50%);
+}
+.vrange:focus-visible {
+  outline: none;
+}
+.vrange:focus-visible .vthumb {
+  box-shadow: 0 0 0 2px var(--color-focus);
+}
+
+.sizerZoom .vrange {
+  height: calc(var(--vrange) - 24px);
+}
+.zoomMenu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 2px 0 4px;
+}
+.zoomLabel {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  height: 24px;
+  padding: 0 4px;
+  border-radius: var(--radius-control);
+  font-size: var(--text-label);
+  font-weight: var(--weight-caption);
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.zoomLabel:hover,
+.zoomLabel[aria-expanded='true'] {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.zoomLabel svg {
+  width: 10px;
+  height: 10px;
+}
+.zoomList {
+  composes: menu from './controls.module.css';
+  position: absolute;
+  left: 100%;
+  bottom: 0;
+  margin-left: 6px;
+  min-width: 100px;
+  z-index: 20;
+}
+.zoomList .zoomOn {
+  font-weight: var(--weight-caption);
+}

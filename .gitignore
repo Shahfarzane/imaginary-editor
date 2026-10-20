@@ -1,0 +1,9 @@
+node_modules
+dist
+.cloudflare/
+.DS_Store
+*.log
+.vite
+.vitest/
+test-results/
+playwright-report/

@@ -1,0 +1,77 @@
+.ratios {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+}
+/* Ratio tiles are ghost buttons; the chosen one is pressed like a toolbar tool. */
+.ratio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0 4px;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-3);
+  font-size: var(--text-label);
+  font-weight: var(--weight-caption);
+  cursor: default;
+}
+.ratio:hover {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.ratio.on {
+  background: var(--color-toolbar-button-pressed);
+  box-shadow: var(--shadow-control);
+  color: var(--color-gray-1);
+}
+.shape {
+  height: 24px;
+  display: grid;
+  place-items: end center;
+}
+.shape span {
+  display: block;
+  border: 1.5px solid currentColor;
+  border-radius: 1px;
+  transform: scale(1.3);
+  transform-origin: bottom center;
+}
+.modes {
+  composes: toggleGroup from './controls.module.css';
+}
+.modes button {
+  flex: 1;
+}
+.modes .modeOn {
+  background: var(--color-toggle-pressed);
+  box-shadow: var(--shadow-toggle);
+  color: var(--color-gray-1);
+  font-weight: var(--weight-caption);
+  letter-spacing: -0.007em;
+}
+.custom {
+  composes: field from './controls.module.css';
+  width: 100%;
+}
+.iconRow {
+  display: flex;
+  gap: 4px;
+  margin: 0 -4px;
+}
+.iconRow button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.iconRow button:hover {
+  background: var(--color-ghost-hover);
+  color: var(--color-gray-1);
+}
+.iconRow button:active {
+  background: var(--color-ghost-pressed);
+}

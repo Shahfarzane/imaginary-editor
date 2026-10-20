@@ -1,0 +1,127 @@
+/* Sits inside the photo frame and stays up while the photo has a look: a small floating panel
+   in the lower left with the look's sliders. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* In the grid: the same sliders in a floating panel at the bottom left, above the strip. */
+.card {
+  position: absolute;
+  left: 16px;
+  bottom: 94px;
+  z-index: 2;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px 10px;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+}
+.stack {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  width: min(260px, calc(100% - 32px));
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px 10px;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  pointer-events: auto;
+}
+
+/* Label left, signed value right, then the pill track. */
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 16px;
+}
+.label {
+  composes: rowLabel from './controls.module.css';
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.label:hover {
+  color: var(--color-gray-1);
+}
+.value {
+  color: var(--color-gray-1);
+  font-variant-numeric: tabular-nums;
+}
+.track {
+  --d: 20px;
+  /* The thumb's center: it travels from half a thumb in from each end. */
+  --c: calc(var(--p) * (100% - var(--d)) + var(--d) / 2);
+  position: relative;
+  height: 24px;
+}
+.track::before {
+  content: '';
+  position: absolute;
+  inset: 6px 0;
+  border-radius: 6px;
+  background: var(--color-slider-range);
+  pointer-events: none;
+}
+.fill {
+  position: absolute;
+  top: 6px;
+  height: 12px;
+  left: 0;
+  width: var(--c);
+  border-radius: 6px 0 0 6px;
+  background: var(--color-slider-track);
+  pointer-events: none;
+}
+.bipolar .fill {
+  left: min(50%, var(--c));
+  width: calc(max(50%, var(--c)) - min(50%, var(--c)));
+  border-radius: 0;
+}
+.thumb {
+  position: absolute;
+  top: 6px;
+  left: calc(var(--p) * (100% - var(--d)));
+  width: var(--d);
+  height: 12px;
+  border-radius: 6px;
+  background: #f9f9f9;
+  box-shadow:
+    0 2px 4px -2px #00000040,
+    0 0 1px 1px #00000026;
+  pointer-events: none;
+}
+.range:focus-visible ~ .thumb {
+  box-shadow: 0 0 0 2px var(--color-focus);
+}
+/* The native input (under the drawn parts) handles dragging and keys; its thumb matches the drawn one so values line up. */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: default;
+  appearance: none;
+  background: transparent;
+}
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--d);
+  height: 24px;
+}
+.range::-moz-range-thumb {
+  width: var(--d);
+  height: 24px;
+  border: 0;
+}

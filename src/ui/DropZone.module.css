@@ -1,0 +1,25 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--color-dialog-backdrop);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: fade 0.15s var(--ease);
+}
+.box {
+  padding: 48px 96px;
+  border: 1px dashed var(--color-gray-4);
+  border-radius: var(--radius-16);
+  background: var(--color-popup);
+  box-shadow: var(--shadow-popup);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-gray-1);
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}

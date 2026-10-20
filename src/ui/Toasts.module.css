@@ -1,0 +1,39 @@
+.wrap {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  z-index: 60;
+  pointer-events: none;
+}
+/* The toast: the panel at 92% with a blur, in a popup ring. */
+.toast {
+  max-width: 580px;
+  padding: 8px 12px;
+  border-radius: var(--radius-6);
+  background: var(--color-toast);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  color: var(--color-gray-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: rise 0.45s var(--ease-out-fast);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}

@@ -1,0 +1,134 @@
+/* Floats over the top of the canvas as a floating toolbar; the grid and the single view keep a
+   band clear for it (Library), so selecting a photo never moves the layout. */
+.bar {
+  position: absolute;
+  z-index: 5;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  border-radius: var(--radius-10);
+  background: var(--color-menu);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-popup);
+  animation: appear 0.3s var(--ease-out-fast);
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}
+.count {
+  padding: 0 2px 0 10px;
+  color: var(--color-gray-1);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.clear {
+  composes: iconButton from './controls.module.css';
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  border-radius: var(--radius-4);
+  color: var(--color-gray-3);
+}
+/* Buttons as in the rail: 36x32 with a pill behind them. */
+.btn {
+  position: relative;
+  isolation: isolate;
+  width: 36px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: var(--color-gray-2);
+  cursor: default;
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 2px 4px;
+  border-radius: var(--radius-6);
+}
+.btn svg {
+  width: 20px;
+  height: 20px;
+}
+.btn:not(:disabled):hover {
+  color: var(--color-gray-1);
+}
+.btn:not(:disabled):hover::before {
+  background: var(--color-toolbar-button-hover);
+}
+.btn:disabled {
+  opacity: 0.4;
+}
+.btn:focus-visible {
+  outline: none;
+}
+.btn:focus-visible::before {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -1px;
+}
+/* Isolate on: a dot in the accent. */
+.on::after {
+  content: '';
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-blue-3);
+}
+.held {
+  color: var(--color-gray-1);
+}
+.held::before {
+  background: var(--color-toolbar-button-pressed);
+  box-shadow: var(--shadow-control);
+}
+.sep {
+  flex: none;
+  width: 1px;
+  height: 16px;
+  margin: 0 2px;
+  background: var(--color-separator);
+}
+
+/* Tooltips open below the bar. */
+.tip {
+  composes: tooltip from './controls.module.css';
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.btn:hover > .tip {
+  opacity: 1;
+  transition-delay: 0.35s;
+}
+.tip kbd {
+  font: inherit;
+  color: var(--color-gray-3);
+  margin-left: 8px;
+}
+/* Favorite heart: red and filled. */
+.fav {
+  color: var(--color-red);
+}
+.fav svg path {
+  fill: currentColor;
+}
