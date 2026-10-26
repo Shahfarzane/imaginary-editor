@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { moveItem, placeItem } from '../model/order'
+import { uuid } from './uuid'
 
 /** Your collections: named sets of preset tiles, shown in the strip after your own presets and kept in this browser. */
 export interface Collection {
@@ -52,7 +53,7 @@ export const useCollections = create<CollectionsState>((set, get) => {
   return {
     list: load(),
     create: (name, codes) =>
-      store([...get().list, { id: crypto.randomUUID(), name: name.trim() || `Collection ${get().list.length + 1}`, codes: unique(codes) }]),
+      store([...get().list, { id: uuid(), name: name.trim() || `Collection ${get().list.length + 1}`, codes: unique(codes) }]),
     rename: (id, name) => name.trim() && update(id, (c) => ({ ...c, name: name.trim() })),
     remove: (id) => store(get().list.filter((c) => c.id !== id)),
     add: (id, codes) => update(id, (c) => ({ ...c, codes: unique([...c.codes, ...codes]) })),

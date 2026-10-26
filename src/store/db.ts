@@ -2,6 +2,7 @@ import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
 import type { Edit } from '../model/edit'
 import type { PhotoInfo } from '../model/photoInfo'
 import { mergePhoto, photoPatch, type PhotoPatch } from './photoMerge'
+import { uuid } from './uuid'
 
 export interface PhotoRecord {
   /** Last operation per editable field, retained for idempotent journal recovery across tabs. */
@@ -60,7 +61,7 @@ export function db() {
 // a write that fails stays pending (and journaled) for the next one.
 const JOURNAL = 'imaginary.pending-photos'
 // Each page owns its journal. Finishing a write in one tab must not erase another tab's pending work.
-const journalKey = `${JOURNAL}:${crypto.randomUUID()}`
+const journalKey = `${JOURNAL}:${uuid()}`
 interface Journal {
   put: Record<string, PhotoRecord>
   del: string[]
@@ -72,7 +73,7 @@ const patches = new Map<string, PhotoPatch>()
 const observed = new Map<string, PhotoRecord>()
 const listeners = new Set<(photos: PhotoRecord[]) => void>()
 let clock = 0
-const writer = crypto.randomUUID()
+const writer = uuid()
 const SYNC = 'imaginary.photo-sync'
 const channel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel(SYNC) : null
 
@@ -87,7 +88,7 @@ function stamp() {
 function announce() {
   channel?.postMessage(null)
   try {
-    localStorage.setItem(SYNC, crypto.randomUUID())
+    localStorage.setItem(SYNC, uuid())
   } catch {
     /* BroadcastChannel still works. */
   }
