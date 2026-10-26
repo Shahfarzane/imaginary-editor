@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { cloneEdit, defaultEdit, type Edit } from '../model/edit'
 import { deleteUserPreset, loadUserPresets, putUserPreset, type RecipeRecord } from './db'
+import { uuid } from './uuid'
 
 /** A preset from an edit: every look, tool and effect setting, without the framing or the photo's grain seed. */
 export function presetEdit(e: Edit): Edit {
@@ -22,7 +23,7 @@ export const useUserPresets = create<UserPresetsState>((set, get) => ({
     set({ list: await loadUserPresets() })
   },
   async save(name, edit) {
-    const r: RecipeRecord = { id: crypto.randomUUID(), name: name.trim() || 'My preset', edit: presetEdit(edit), created: Date.now() }
+    const r: RecipeRecord = { id: uuid(), name: name.trim() || 'My preset', edit: presetEdit(edit), created: Date.now() }
     await putUserPreset(r)
     set({ list: [...get().list, r] })
     return r
